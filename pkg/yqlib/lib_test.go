@@ -24,7 +24,8 @@ type parseSnippetScenario struct {
 var parseSnippetScenarios = []parseSnippetScenario{
 	{
 		snippet:       ":",
-		expectedError: "yaml: while parsing a block mapping at <unknown position>: did not find expected key",
+		// Error message is produced by go-yaml; match stable substring to avoid brittle tests.
+		expectedError: "did not find expected key",
 	},
 	{
 		snippet: "",
