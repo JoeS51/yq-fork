@@ -24,6 +24,7 @@ type parseSnippetScenario struct {
 var parseSnippetScenarios = []parseSnippetScenario{
 	{
 		snippet:       ":",
+		// Error message is produced by go-yaml; match stable substring to avoid brittle tests.
 		expectedError: "did not find expected key",
 	},
 	{
