@@ -55,7 +55,11 @@ func traverse(context Context, matchingNode *CandidateNode, operation *Operation
 	switch matchingNode.Kind {
 	case MappingNode:
 		log.Debug("its a map with %v entries", len(matchingNode.Content)/2)
-		return traverseMap(context, matchingNode, createStringScalarNode(operation.StringValue), operation.Preferences.(traversePreferences), false)
+		keyNode := createStringScalarNode(operation.StringValue)
+		if operation.StringValue == "<<" {
+			keyNode.Tag = "!!merge"
+		}
+		return traverseMap(context, matchingNode, keyNode, operation.Preferences.(traversePreferences), false)
 
 	case SequenceNode:
 		log.Debug("its a sequence of %v things!", len(matchingNode.Content))
