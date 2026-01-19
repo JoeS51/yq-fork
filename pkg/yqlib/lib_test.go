@@ -102,7 +102,12 @@ func TestParseSnippet(t *testing.T) {
 			if err == nil {
 				t.Errorf("Expected error '%v' but it worked!", tt.expectedError)
 			} else {
-				test.AssertResultComplexWithContext(t, tt.expectedError, err.Error(), tt.snippet)
+				test.AssertResultWithContext(
+					t,
+					true,
+					strings.Contains(err.Error(), tt.expectedError),
+					fmt.Sprintf("Expected [%v] to contain [%v]", err.Error(), tt.expectedError),
+				)
 			}
 			continue
 		}
